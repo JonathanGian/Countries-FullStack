@@ -1,3 +1,4 @@
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=JonathanGian_Countries-FullStack)](https://sonarcloud.io/summary/new_code?id=JonathanGian_Countries-FullStack)
 
 # Countries Fullstack
 
