@@ -1,4 +1,10 @@
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=JonathanGian_Countries-FullStack)](https://sonarcloud.io/summary/new_code?id=JonathanGian_Countries-FullStack)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=JonathanGian_Countries-FullStack&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=JonathanGian_Countries-FullStack)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=JonathanGian_Countries-FullStack&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=JonathanGian_Countries-FullStack)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=JonathanGian_Countries-FullStack&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=JonathanGian_Countries-FullStack)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=JonathanGian_Countries-FullStack&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=JonathanGian_Countries-FullStack)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=JonathanGian_Countries-FullStack&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=JonathanGian_Countries-FullStack)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=JonathanGian_Countries-FullStack&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=JonathanGian_Countries-FullStack)
 
 # Countries Fullstack
 
