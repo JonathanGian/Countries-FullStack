@@ -12,6 +12,7 @@ const initialState: CountryState = {
 
 export const fetchAllCountries = createAsyncThunk("countries/fetchAllCountries", async () => {
     const response = await countriesApi.getAllCountries();
+    console.log("API Response:", response); // Debugging step
     return response;
 })
 
