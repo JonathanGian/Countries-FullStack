@@ -17,7 +17,6 @@ const CountriesList = () => {
     <Typography variant="h3" gutterBottom>
       Country List
     </Typography>
-
     {/* Show loading if no data */}
     {countries.length === 0 ? (
       <Box display="flex" justifyContent="center" alignItems="center" height="50vh">
@@ -25,6 +24,7 @@ const CountriesList = () => {
       </Box>
     ) : (
       <Grid container spacing={3}>
+        
         {countries.map((country, index) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
             <Card sx={{ maxWidth: 345, boxShadow: 3 }}>
@@ -34,6 +34,7 @@ const CountriesList = () => {
                 image={country.flags?.svg || "https://via.placeholder.com/180"}
                 alt={`Flag of ${country.name.common}`}
               />
+             
               <CardContent>
                 <Typography variant="h6" gutterBottom>
                   {country.name.common}
@@ -46,6 +47,14 @@ const CountriesList = () => {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   <strong>Region:</strong> {country.region}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  <strong>Currency: </strong>
+                {country.currencies
+                      ? Object.entries(country.currencies)
+                          .map(([code, currency]) => `${currency.name} (${code})`)
+                          .join(", ")
+                      : "N/A"}
                 </Typography>
               </CardContent>
             </Card>

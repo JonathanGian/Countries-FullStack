@@ -7,7 +7,8 @@ import { Navigation } from "./components/Navigation";
 import { Login } from "./components/Auth/Login";
 import ProtectedTestData from "./components/ProtectedTestData";
 import { AuthRedirect } from "./components/Auth/AuthRedirect";
-import CountriesList from "./components/CountriesTest";
+import CountriesList from "./components/CountriesList";
+import CountryDetail from "./components/CountryDetail";
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
                 </>
               } />
               <Route path="/test" element={<TestData />} />
-              <Route path="/cont" element={<CountriesList />} />
+              <Route path="/country/all" element={<CountriesList />} />
+              <Route path="/country/:name" element={<CountryDetail />} />
               <Route
                 path="/protected"
                 element={
