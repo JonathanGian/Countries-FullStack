@@ -7,8 +7,9 @@ import { Navigation } from "./components/Navigation";
 import { Login } from "./components/Auth/Login";
 import ProtectedTestData from "./components/ProtectedTestData";
 import { AuthRedirect } from "./components/Auth/AuthRedirect";
-import CountriesList from "./components/CountriesList";
-import CountryDetail from "./components/CountryDetail";
+import CountriesList from "./components/Countries/CountriesList";
+import CountryDetail from "./components/Countries/CountryDetail";
+import WeatherInfo from "./components/Weather/WeatherInfo";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route path="/test" element={<TestData />} />
               <Route path="/country/all" element={<CountriesList />} />
               <Route path="/country/:name" element={<CountryDetail />} />
+              <Route path="/weather/:capital" element={<WeatherInfo city="Austin, TX" />} />
               <Route
                 path="/protected"
                 element={

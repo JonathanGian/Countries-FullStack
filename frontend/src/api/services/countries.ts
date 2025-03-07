@@ -4,6 +4,8 @@ import { api } from "../axios";
 export const countriesApi = {
     getAllCountries: (): Promise<Country[]> => api.get("https://restcountries.com/v3.1/all"),
 }
+
+// NOT USED YET
 export const getCountryByCode = (code: string): Promise<Country> => api.get(`https://restcountries.com/v3.1/alpha/${code}`);
 
 export const getCountryByName = (name: string): Promise<Country[]> => api.get(`https://restcountries.com/v3.1/name/${name}`);

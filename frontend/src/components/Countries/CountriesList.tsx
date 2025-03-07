@@ -1,7 +1,8 @@
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useEffect } from "react";
-import { fetchAllCountries, selectAllCountries } from "../store/slices/countriesSlice";
+import { fetchAllCountries, selectAllCountries } from "../../store/slices/countriesSlice";
 import { Box, Card, CardContent, CardMedia, CircularProgress, Grid, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const CountriesList = () => {
   const dispatch = useAppDispatch();
@@ -27,7 +28,9 @@ const CountriesList = () => {
         
         {countries.map((country, index) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-            <Card sx={{ maxWidth: 345, boxShadow: 3 }}>
+            <Link to={`/country/${country.name.common}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+
+            <Card  sx={{ maxWidth: 345, boxShadow: 3 }} >
               <CardMedia
                 component="img"
                 height="180"
@@ -58,6 +61,7 @@ const CountriesList = () => {
                 </Typography>
               </CardContent>
             </Card>
+            </Link>
           </Grid>
         ))}
       </Grid>

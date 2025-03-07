@@ -12,7 +12,7 @@ const initialState: CountryState = {
 
 export const fetchAllCountries = createAsyncThunk("countries/fetchAllCountries", async () => {
     const response = await countriesApi.getAllCountries();
-    console.log("API Response:", response); // Debugging step
+  
     return response;
 })
 
@@ -49,4 +49,5 @@ export const selectCountriesError = (state: RootState) => state.countries.error;
 
 
 export const { clearSelectedCountry, setSelectedCountry } = countrySlice.actions;
+
 export default countrySlice.reducer;
