@@ -147,3 +147,21 @@ VITE_OPENWEATHER_API_KEY=your_api_key
 - Error states with user-friendly messages
 - Fallbacks for missing data
 - Type-safe error handling in Redux
+
+## 9. Required Additional Features:
+
+- Add a search bar to the CountriesList component to filter countries by name
+
+## 10. Optional Features:
+
+1. Add virtualised pagination to the CountriesList component
+2. Add a dark mode toggle to the application
+
+For the below, consider creating a Toolbar with the filters and a button to clear the filters.
+
+3. Add a select filter to the CountriesList component to filter countries by region
+4. Add a select filter to the CountriesList component to filter countries by subregion
+5. Add a select filter to the CountriesList component to filter countries by population
+6. Add a select filter to the CountriesList component to filter countries by area
+7. Add a select filter to the CountriesList component to filter countries by capital
+8. Add a select filter to the CountriesList component to filter countries by currency

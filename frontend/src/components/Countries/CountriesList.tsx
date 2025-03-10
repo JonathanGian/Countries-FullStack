@@ -1,43 +1,40 @@
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useEffect } from "react";
-import { fetchAllCountries, selectAllCountries } from "../../store/slices/countriesSlice";
-import { Box, Card, CardContent, CardMedia, CircularProgress, Grid, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Box, Card, CardContent, CardMedia, CircularProgress, Grid, Typography, Button, CardActions } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { fetchAllCountries, selectAllCountries } from "../../store/slices/countriesSlice";
+import FavoriteButton from "../Favorites/FavoriteButton";
 
 const CountriesList = () => {
   const dispatch = useAppDispatch();
   const countries = useAppSelector(selectAllCountries);
 
-
   useEffect(() => {
-    dispatch(fetchAllCountries());
-  }, [dispatch]);
+    if (!countries || countries.length === 0) {
+      dispatch(fetchAllCountries());
+    }
+  }, [countries, dispatch]);
+
+  if (countries.length === 0) {
+    return <CircularProgress />;
+  }
 
   return (
-    <Box sx={{ p: 3 }}>
-    <Typography variant="h3" gutterBottom>
-      Country List
-    </Typography>
-    {/* Show loading if no data */}
-    {countries.length === 0 ? (
-      <Box display="flex" justifyContent="center" alignItems="center" height="50vh">
-        <CircularProgress />
-      </Box>
-    ) : (
-      <Grid container spacing={3}>
-        
-        {countries.map((country, index) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-            <Link to={`/country/${country.name.common}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+    <Box sx={{ p: 4 }}>
+      <Typography variant="h3" gutterBottom>
+        Explore Countries
+      </Typography>
 
-            <Card  sx={{ maxWidth: 345, boxShadow: 3 }} >
+      <Grid container spacing={4}>
+        {countries.map((country) => (
+          <Grid item xs={12} sm={6} md={4} lg={3} key={country.cca3}>
+            <Card sx={{ height: "100%", boxShadow: 2 }}>
               <CardMedia
                 component="img"
-                height="180"
-                image={country.flags?.svg || "https://via.placeholder.com/180"}
+                height="160"
+                image={country.flags?.svg || "https://via.placeholder.com/300"}
                 alt={`Flag of ${country.name.common}`}
               />
-             
               <CardContent>
                 <Typography variant="h6" gutterBottom>
                   {country.name.common}
@@ -52,21 +49,25 @@ const CountriesList = () => {
                   <strong>Region:</strong> {country.region}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  <strong>Currency: </strong>
-                {country.currencies
-                      ? Object.entries(country.currencies)
-                          .map(([code, currency]) => `${currency.name} (${code})`)
-                          .join(", ")
-                      : "N/A"}
+                  <strong>Currency:</strong>{" "}
+                  {country.currencies
+                    ? Object.entries(country.currencies)
+                        .map(([code, currency]) => `${currency.name} (${code})`)
+                        .join(", ")
+                    : "N/A"}
                 </Typography>
               </CardContent>
+              <CardActions sx={{ mt: "auto", justifyContent: "space-between" }}>
+                <Button size="small" component={Link} to={`/country/${country.name.common}`}>
+                  View Details
+                </Button>
+                <FavoriteButton country={country} />
+              </CardActions>
             </Card>
-            </Link>
           </Grid>
         ))}
       </Grid>
-    )}
-  </Box>
+    </Box>
   );
 };
 

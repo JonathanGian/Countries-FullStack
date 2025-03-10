@@ -1,7 +1,7 @@
 export interface CountryName {
     common: string;
     official: string;
-    nativeName: Record<string, { official: string; common: string }>;
+    nativeName?: Record<string, { official: string; common: string }>;
 }
 
 export interface CountryFlags {

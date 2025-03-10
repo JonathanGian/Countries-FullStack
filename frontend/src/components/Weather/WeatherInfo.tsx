@@ -15,12 +15,14 @@ const WeatherInfo: React.FC<WeatherInfoProps> = ({ city }) => {
   const loading = useAppSelector((state) => state.weather.loading);
   const error = useAppSelector((state) => state.weather.error);
   const weather = useAppSelector(selectWeather);
- 
-  useEffect(() => {
-    if (!city) return;
-    dispatch(fetchWeatherByCity(city));
-  }, [city, dispatch]);
 
+
+  console.log("CITY:",city)
+  useEffect(() => {
+    if (city && weather.weather.name !== city) {
+      dispatch(fetchWeatherByCity(city));
+    }
+  }, [city, dispatch, weather.weather.name]);
   if (loading) {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
@@ -28,16 +30,13 @@ const WeatherInfo: React.FC<WeatherInfoProps> = ({ city }) => {
       </Box>
     );
   }
-
+console.log(error)
   if (error) {
-    return (
-      <Typography variant="h6" color="error" sx={{ mt: 2, textAlign: "center" }}>
-        Error: {error}
-      </Typography>
-    );
+    return <Typography variant="body2">Weather data unavailable for {city}</Typography>;
   }
 
-  if (!weather || !weather.weather.main) {
+
+  if ( !weather.weather.name) {
     return (
       <Typography variant="h6" sx={{ mt: 2, textAlign: "center" }}>
         No weather data available.
@@ -50,10 +49,8 @@ const WeatherInfo: React.FC<WeatherInfoProps> = ({ city }) => {
   const weatherIcon = weather.weather.weather[0].icon;
   const windSpeed = weather.weather.wind.speed;
   
-
-  console.log(description);
-  console.log(temp);
-  console.log("HUMIDITY", humidity);
+console.log(temp)
+console.log(weather.weather.name)
   return (
     <Box sx={{ mt: 2 }}>
       <Typography variant="h6">Current Weather in {city}</Typography>

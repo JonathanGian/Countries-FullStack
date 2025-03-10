@@ -14,17 +14,33 @@ const initialState: WeatherState = {
 
 // Create an async thunk for fetching weather data
 export const fetchWeatherByCity = createAsyncThunk(
-  'weather/fetchWeatherByCity',
-  async (city: string) => {
-   
+  "weather/fetchWeatherByCity",
+  async (city: string, { rejectWithValue }) => {
+    const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
+
+    try {
+      // const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather`, {
+      //   params: {
+      //     q: `${encodeURIComponent(city)}`,
+      //     units: "metric",
+      //     appid: import.meta.env.VITE_OPENWEATHER_API_KEY,
+      //   },
+      // });
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${import.meta.env.VITE_OPENWEATHER_API_KEY}`
       );
-      return response.data;
-    
-  }
-);
 
+      if (!apiKey) {
+        console.error('Weather API Key is missing!');
+        return rejectWithValue('API key missing');
+      }
+      return response.data;
+    } catch (error) {
+      console.error("Weather fetch failed:", error);
+      return rejectWithValue("Weather data unavailable.");
+    }
+  },
+);
 // Create the weather slice
 const weatherSlice = createSlice({
   name: 'weather',
