@@ -134,6 +134,7 @@ export const Navigation = () => {
         </Toolbar>
       </AppBar>
       <Drawer
+      transitionDuration={0}
         anchor="left"
         open={drawerOpen}
     
