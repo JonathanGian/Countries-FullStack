@@ -11,6 +11,8 @@ import CountriesList from "./components/Countries/CountriesList";
 import CountryDetail from "./components/Countries/CountryDetail";
 import WeatherInfo from "./components/Weather/WeatherInfo";
 import Favorites from "./components/Favorites/Favorites";
+import UserProfile from "./components/UserProfile";
+import Home from "./components/Home";
 
 function App() {
   return (
@@ -27,18 +29,37 @@ function App() {
                 </>
               } />
               <Route path="/test" element={<TestData />} />
-              <Route path="/country/all" element={<CountriesList />} />
-              <Route path="/country/:name" element={<CountryDetail />} />
+           
+              <Route path="/countries/:name" element={
+                <ProtectedRoute>
+                <CountryDetail />
+                </ProtectedRoute>
+                } />
               <Route path="/weather/:capital" element={<WeatherInfo city="Austin, TX" />} />
+
+              <Route path="/" element={
+                <ProtectedRoute>
+                  <Home/>
+                </ProtectedRoute>} 
+              />
               <Route
                 path="/protected"
                 element={
                   <ProtectedRoute>
                    <ProtectedTestData/>
-                   
                     </ProtectedRoute>
                   }
               />
+              
+              <Route
+                path="/countries/all"
+                element={
+                  <ProtectedRoute>
+                   <CountriesList />
+                    </ProtectedRoute>
+                  }
+              />
+              
               <Route
                 path="/favorites"
                 element={
@@ -47,6 +68,16 @@ function App() {
                     </ProtectedRoute>
                   }
               />
+              
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <UserProfile />
+                    </ProtectedRoute>
+                  }
+              />
+              
               {/* Other routes... */}
             </Routes>
           </Box>

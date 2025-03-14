@@ -29,7 +29,9 @@ const FavoriteButton = ({country, onToggle}: FavoriteButtonProps) => {
         }
         checkFavoriteStatus();
     }, [user,country.name.common, isInitialized]);
-    
+    useEffect(() => {
+            
+    }, [isFavorite]);
     const handleToggleFavorite = async () => {
         if (!user) return;
         setLoading(true);
@@ -51,15 +53,16 @@ const FavoriteButton = ({country, onToggle}: FavoriteButtonProps) => {
         }finally{
             setLoading(false);
         }
-
     }
+
     if(!user) return null;
     return (
         <Tooltip title={isFavorite ? "Remove from favorites" : "Add to favorites"}>
             <IconButton
                 onClick={handleToggleFavorite}
                 disabled={loading}
-                color="primary"
+                color={"secondary"}
+                sx={{color: isFavorite ? "red" : "secondary.dark" }}
                 aria-label="toggle favorite"
                 >
                     {isFavorite ? <Favorite/> : <FavoriteBorder/>}

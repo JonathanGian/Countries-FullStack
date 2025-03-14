@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Box, Card, CardContent, CardMedia, CircularProgress, Grid, Typography, Button, CardActions } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, CircularProgress, Grid, Typography, Button, CardActions, TextField } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { fetchAllCountries, selectAllCountries } from "../../store/slices/countriesSlice";
 import FavoriteButton from "../Favorites/FavoriteButton";
@@ -8,9 +8,32 @@ import FavoriteButton from "../Favorites/FavoriteButton";
 const CountriesList = () => {
   const dispatch = useAppDispatch();
   const countries = useAppSelector(selectAllCountries);
+  const [filter, setFilter] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const countriesPerPage = 8;
+
+  const filteredCountries = countries.filter((country) =>
+    country.name.common.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  const indexOfLastCountry = currentPage * countriesPerPage;
+  const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
+  const currentCountries = filteredCountries.slice(indexOfFirstCountry, indexOfLastCountry);
+
+  const totalPages = Math.ceil(filteredCountries.length / countriesPerPage);
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   useEffect(() => {
-    if (!countries || countries.length === 0) {
+    if (countries.length === 0)  {
       dispatch(fetchAllCountries());
     }
   }, [countries, dispatch]);
@@ -24,9 +47,21 @@ const CountriesList = () => {
       <Typography variant="h3" gutterBottom>
         Explore Countries
       </Typography>
+      <Box sx={{ mb: 2 }}>
+        <TextField
+          label="Filter by country name"
+          variant="outlined"
+          fullWidth
+          value={filter}
+          onChange={(e) => {
+            setFilter(e.target.value);
+            setCurrentPage(1);
+          }}
+        />
+      </Box>
 
       <Grid container spacing={4}>
-        {countries.map((country) => (
+        {currentCountries.map((country) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={country.cca3}>
             <Card sx={{ height: "100%", boxShadow: 2 }}>
               <CardMedia
@@ -58,7 +93,7 @@ const CountriesList = () => {
                 </Typography>
               </CardContent>
               <CardActions sx={{ mt: "auto", justifyContent: "space-between" }}>
-                <Button size="small" component={Link} to={`/country/${country.name.common}`}>
+                <Button size="small" component={Link} to={`/countries/${country.name.common}`}>
                   View Details
                 </Button>
                 <FavoriteButton country={country} />
@@ -67,6 +102,17 @@ const CountriesList = () => {
           </Grid>
         ))}
       </Grid>
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+        <Button onClick={handlePrevPage} disabled={currentPage === 1}>
+          Previous
+        </Button>
+        <Typography sx={{ mx: 2, alignSelf: "center" }}>
+          Page {currentPage} of {totalPages}
+        </Typography>
+        <Button onClick={handleNextPage} disabled={currentPage === totalPages}>
+          Next
+        </Button>
+      </Box>
     </Box>
   );
 };

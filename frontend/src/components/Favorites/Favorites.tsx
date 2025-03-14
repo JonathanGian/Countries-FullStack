@@ -6,7 +6,8 @@ import { selectAllCountries } from "../../store/slices/countriesSlice";
 import { favoritesApi } from "../../api/services/favorites";
 import { Alert, CircularProgress, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import CountryDetail from "../Countries/CountryDetail";
+
+import CountryCard from "../Countries/CountryCard";
 
 const Favorites = () => {
   const { user } = useAuth();
@@ -114,7 +115,7 @@ const Favorites = () => {
         // const country = convertToCountry(favorite);
         return (
           <Grid item xs={12} sm={6} md={4} key={favorite.id}>
-            <CountryDetail country={convertToCountry(favorite)} />
+            <CountryCard country={convertToCountry(favorite)} />
           </Grid>
         );
       })}
