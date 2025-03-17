@@ -28,14 +28,16 @@ export const Navigation = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
-  }
+  };
   return (
     <>
       <AppBar
+        role="banner"
+        aria-label="navigation"
         position="sticky"
         sx={{
           mb: 3,
-          
+
           background: "85FFBD",
           backgroundImage:
             "linear-gradient(295deg, #85FFBD 0%, #FFFB7D 62%, #04ffe8 100%)",
@@ -45,33 +47,32 @@ export const Navigation = () => {
           zIndex: (theme) => theme.zIndex.drawer + 10,
         }}
       >
-        {/* <AppBar
-        position="static"
-        sx={{
-          mb: 3,
-          background: "#85FFBD",
-          backgroundImage:
-            "linear-gradient(295deg, #85FFBD 0%, #FFFB7D 62%, #04ffe8 100%)",
-          color: "#000",
-        }}
-      > */}
-        <Toolbar>
+        <Toolbar 
+        aria-label="navigation"
+        role="navigation">
           {/* Left side navigation items */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <IconButton color="inherit" onClick={toggleColorMode}>
               <Brightness4 />
             </IconButton>
-            <IconButton color="inherit" onClick={() => setDrawerOpen(true)}>
+            <IconButton 
+             aria-label="menu"
+            color="inherit" onClick={() => setDrawerOpen(true)}>
               <MenuIcon />
             </IconButton>
-            <Button color="inherit" component={RouterLink} to="/">
+            <Button 
+            aria-label="home"
+            color="inherit" component={RouterLink} to="/">
               Home
             </Button>
-            <Button color="inherit" component={RouterLink} to="/countries/all">
+            <Button 
+            aria-label="countries"
+            color="inherit" component={RouterLink} to="/countries/all">
               Countries
             </Button>
             {user && (
               <Button
+              aria-label="favorites"
                 color="inherit"
                 component={RouterLink}
                 to="/favorites"
@@ -102,6 +103,8 @@ export const Navigation = () => {
                   title="PROFILE"
                 />
                 <Menu
+                  role="menu"
+                  aria-label="user-menu"
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
                   onClose={() => setAnchorEl(null)}
@@ -109,6 +112,7 @@ export const Navigation = () => {
                   transformOrigin={{ vertical: "top", horizontal: "right" }}
                 >
                   <MenuItem
+                    role="button"
                     component={RouterLink}
                     to="/profile"
                     onClick={() => setAnchorEl(null)}
@@ -116,6 +120,7 @@ export const Navigation = () => {
                     Profile
                   </MenuItem>
                   <MenuItem
+                    role="button"
                     onClick={() => {
                       setAnchorEl(null);
                       signOut();
@@ -126,7 +131,7 @@ export const Navigation = () => {
                 </Menu>
               </>
             ) : (
-              <Button color="inherit" component={RouterLink} to="/login">
+              <Button role="button" color="inherit" component={RouterLink} to="/login">
                 Login
               </Button>
             )}
@@ -134,10 +139,11 @@ export const Navigation = () => {
         </Toolbar>
       </AppBar>
       <Drawer
-      transitionDuration={0}
+        transitionDuration={0}
         anchor="left"
         open={drawerOpen}
-    
+        role="navigation"
+        aria-label="navigation"
         onClose={() => setDrawerOpen(false)}
         PaperProps={{
           sx: {
@@ -150,7 +156,6 @@ export const Navigation = () => {
           },
         }}
       >
-      
         <Box sx={{ p: 2 }}>
           <IconButton onClick={() => toggleDrawer()}>
             <Close sx={{ color: "black" }} />

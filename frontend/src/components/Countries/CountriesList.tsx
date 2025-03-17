@@ -63,7 +63,9 @@ const CountriesList = () => {
       <Grid container spacing={4}>
         {currentCountries.map((country) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={country.cca3}>
-            <Card sx={{ height: "100%", boxShadow: 2 }}>
+            <Card
+            role="list"
+            sx={{ height: "100%", boxShadow: 2 }}>
               <CardMedia
                 component="img"
                 height="160"

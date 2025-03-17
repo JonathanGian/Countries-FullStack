@@ -31,16 +31,16 @@ function App() {
               <Route path="/test" element={<TestData />} />
            
               <Route path="/countries/:name" element={
-                <ProtectedRoute>
-                <CountryDetail />
-                </ProtectedRoute>
+                             <CountryDetail />
+              
                 } />
               <Route path="/weather/:capital" element={<WeatherInfo city="Austin, TX" />} />
 
               <Route path="/" element={
-                <ProtectedRoute>
-                  <Home/>
-                </ProtectedRoute>} 
+              
+              <Home/>
+              
+            } 
               />
               <Route
                 path="/protected"
@@ -54,18 +54,18 @@ function App() {
               <Route
                 path="/countries/all"
                 element={
-                  <ProtectedRoute>
+              
                    <CountriesList />
-                    </ProtectedRoute>
+                
                   }
               />
               
               <Route
                 path="/favorites"
                 element={
-                  <ProtectedRoute>
+              
                     <Favorites />
-                    </ProtectedRoute>
+                
                   }
               />
               

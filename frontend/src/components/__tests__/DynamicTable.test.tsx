@@ -11,6 +11,7 @@ describe("DynamicTable Component", () => {
    expect(screen.queryByRole("table")).not.toBeInTheDocument();
   })
 });
+
 describe("DynamicTable Tests", () => {
   it("renders nothing when data array is empty", () => {
     const { container } = render(<DynamicTable data={[]} />);
@@ -33,6 +34,7 @@ describe("DynamicTable Tests", () => {
         active: false,
         joined: new Date("2021-01-01T00:00:00Z"),
         comment: "Hello",
+        test: undefined,
       },
     ];
 
@@ -57,6 +59,8 @@ describe("DynamicTable Tests", () => {
     expect(screen.getByText("Yes")).toBeInTheDocument();
     expect(screen.getByText("No")).toBeInTheDocument();
 
+    //Undefined values are formatted as "-"
+    expect(screen.getByText("-")).toBeInTheDocument();
     // Dates: We use toLocaleString() for formatting.
     const joinedValue1 = new Date("2020-01-01T00:00:00Z").toLocaleString();
     const joinedValue2 = new Date("2021-01-01T00:00:00Z").toLocaleString();

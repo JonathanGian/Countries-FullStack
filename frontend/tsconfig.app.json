@@ -8,6 +8,7 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
+    
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -22,5 +23,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
   },
-  "include": ["src"]
+  "include": ["cypress/e2e","src"]
 }

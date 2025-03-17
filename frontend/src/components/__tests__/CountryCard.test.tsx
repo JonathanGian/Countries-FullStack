@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import CountryCard from "../Countries/CountryCard";
 import { Country } from "../../types/country";
+import { AuthContext } from "../../context/AuthContext";
 
 
 // Mock the useNavigate hook
@@ -18,8 +19,15 @@ vi.mock("react-router-dom", async () => {
   };
 });
 
+const dummyAuthContext = {
+  session: null,
+  user: null,
+  loading: false,
+  signOut: async () => {},
+};
+
 // Mock the FavoriteButton component
-vi.mock("../FavoriteButton", () => ({
+vi.mock("../Favorites/FavoriteButton", () => ({
   FavoriteButton: ({ country }: { country: Country }) => (
     <button data-testid="favorite-button">
       Favorite {country.name.common}
@@ -57,9 +65,11 @@ describe("CountryCard Component", () => {
 
   test("renders country information correctly", () => {
     render(
-      <BrowserRouter>
-        <CountryCard country={mockCountry} />
-      </BrowserRouter>
+      <AuthContext.Provider value={dummyAuthContext}>
+        <BrowserRouter>
+          <CountryCard country={mockCountry} />
+        </BrowserRouter>
+      </AuthContext.Provider>
     );
 
     // Check if country name is rendered
@@ -85,9 +95,11 @@ describe("CountryCard Component", () => {
     const user = userEvent.setup();
 
     render(
-      <BrowserRouter>
-        <CountryCard country={mockCountry} />
-      </BrowserRouter>
+      <AuthContext.Provider value={dummyAuthContext}>
+        <BrowserRouter>
+          <CountryCard country={mockCountry} />
+        </BrowserRouter>
+      </AuthContext.Provider>
     );
 
     // Click on the card
