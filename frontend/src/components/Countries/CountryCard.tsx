@@ -17,9 +17,9 @@ import FavoriteButton from "../Favorites/FavoriteButton";
 
 interface CountryCardProps {
   country: Country;
+  isFavorite?: boolean;
 }
-
-export const CountryCard = ({ country }: CountryCardProps) => {
+const CountryCard = ({ country }: CountryCardProps) => {
   const navigate = useNavigate();
   const urlName = encodeURIComponent(country.name.common.toLowerCase());
 
@@ -77,7 +77,7 @@ export const CountryCard = ({ country }: CountryCardProps) => {
         </CardContent>
       </CardActionArea>
       <CardActions sx={{ mt: "auto", justifyContent: "flex-end" }}>
-        <FavoriteButton country={country} />
+        <FavoriteButton country={country}  />
       </CardActions>
     </Card>
   );

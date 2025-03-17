@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Box, Card, CardContent, CardMedia, CircularProgress, Grid, Typography, Button, CardActions, TextField } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { fetchAllCountries, selectAllCountries } from "../../store/slices/countriesSlice";
+import { fetchAllCountries, selectAllCountries, setSelectedCountry } from "../../store/slices/countriesSlice";
 import FavoriteButton from "../Favorites/FavoriteButton";
 
 const CountriesList = () => {
@@ -73,9 +73,11 @@ const CountriesList = () => {
                 alt={`Flag of ${country.name.common}`}
               />
               <CardContent>
+
                 <Typography variant="h6" gutterBottom>
                   {country.name.common}
                 </Typography>
+                
                 <Typography variant="body2" color="text.secondary">
                   <strong>Capital:</strong> {country.capital?.[0] || "N/A"}
                 </Typography>
@@ -94,8 +96,10 @@ const CountriesList = () => {
                     : "N/A"}
                 </Typography>
               </CardContent>
+              
               <CardActions sx={{ mt: "auto", justifyContent: "space-between" }}>
-                <Button size="small" component={Link} to={`/countries/${country.name.common}`}>
+
+                <Button size="small" component={Link} to={`/countries/${country.name.common}`} onClick={() => dispatch(setSelectedCountry(country))}>
                   View Details
                 </Button>
                 <FavoriteButton country={country} />

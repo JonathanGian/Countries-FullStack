@@ -7,7 +7,7 @@ const UserProfile = () => {
 // import { useAppSelector } from "../../store/hooks";
 // import { selectUser } from "../../store/slices/authSlice";
 const { user } = useAuth();
-console.log(user)
+
   const { toggleColorMode } = useColorMode();
 //   const user = useAppSelector(selectUser);
 

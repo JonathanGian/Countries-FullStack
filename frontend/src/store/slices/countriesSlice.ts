@@ -47,6 +47,8 @@ export const selectAllCountries = (state: RootState) => state.countries.countrie
 export const selectCountriesLoading = (state: RootState) => state.countries.loading;
 export const selectCountriesError = (state: RootState) => state.countries.error;
 
+export const selectSelectedCountry = (state: RootState) =>
+    state.countries.selectedCountry;
 
 export const { clearSelectedCountry, setSelectedCountry } = countrySlice.actions;
 

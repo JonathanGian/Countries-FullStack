@@ -18,6 +18,7 @@ const FavoriteButton = ({country, onToggle}: FavoriteButtonProps) => {
 
     useEffect(() => {
         if(!user || isInitialized) return;
+
         const checkFavoriteStatus = async () => {
             try {
                 const status = await favoritesApi.isFavorite(country.name.common);
@@ -27,11 +28,14 @@ const FavoriteButton = ({country, onToggle}: FavoriteButtonProps) => {
                 console.error("Error checking favorite status:", error);
             }
         }
+
         checkFavoriteStatus();
     }, [user,country.name.common, isInitialized]);
-    useEffect(() => {
+
+    // useEffect(() => {
             
-    }, [isFavorite]);
+    // }, [isFavorite]);
+    
     const handleToggleFavorite = async () => {
         if (!user) return;
         setLoading(true);
