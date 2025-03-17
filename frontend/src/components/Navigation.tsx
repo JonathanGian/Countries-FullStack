@@ -36,8 +36,6 @@ export const Navigation = () => {
         aria-label="navigation"
         position="sticky"
         sx={{
-          mb: 3,
-
           background: "85FFBD",
           backgroundImage:
             "linear-gradient(295deg, #85FFBD 0%, #FFFB7D 62%, #04ffe8 100%)",

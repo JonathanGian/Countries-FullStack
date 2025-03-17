@@ -13,8 +13,6 @@ import WeatherInfo from "./components/Weather/WeatherInfo";
 import Favorites from "./components/Favorites/Favorites";
 import UserProfile from "./components/UserProfile";
 import Home from "./components/Home";
-import Inject from "./components/Inject";
-import CountryCard from "./components/Countries/CountryCard";
 
 function App() {
   return (
@@ -79,12 +77,7 @@ function App() {
                     </ProtectedRoute>
                   }
               />
-              <Route
-                path="/CountriesCard"
-                element={
-                  <CountryCard  />
-                }
-              />
+       
               {/* Other routes... */}
             </Routes>
           </Box>

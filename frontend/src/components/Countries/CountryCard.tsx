@@ -32,6 +32,7 @@ const CountryCard = ({ country }: CountryCardProps) => {
 
   return (
     <Card sx={{ maxWidth: 345, height: "100%" }}>
+COUNTRY CARD
       <CardActionArea onClick={() => navigate(`/countries/${urlName}`)}>
         <CardMedia
           component="img"

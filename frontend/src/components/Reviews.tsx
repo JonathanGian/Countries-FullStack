@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   Box,
   Button,
@@ -25,18 +25,23 @@ const Reviews: React.FC<ReviewsProps> = ({ countryCode, countryName }) => {
   const [editingRating, setEditingRating] = useState<number | null>(0);
   const [editingComment, setEditingComment] = useState<string>("");
 
+  // Define fetchReviews outside useEffect so it's accessible by handlers
+  const fetchReviews = useCallback(
+    async (useCache = true) => {
+      try {
+        const fetchedReviews = await reviewsApi.getReviews(countryCode, useCache);
+        setReviews(fetchedReviews);
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      }
+    },
+    [countryCode]
+  );
+
+  // Use useEffect to load reviews initially when countryCode changes
   useEffect(() => {
     fetchReviews();
-  }, [countryCode]);
-
-  const fetchReviews = async (useCache = true) => {
-    try {
-      const reviews = await reviewsApi.getReviews(countryCode, useCache);
-      setReviews(reviews);
-    } catch (error) {
-      console.error("Error fetching reviews:", error);
-    }
-  };
+  }, [countryCode, fetchReviews]);
 
   const handleSubmit = async () => {
     if (!user) {
@@ -60,7 +65,7 @@ const Reviews: React.FC<ReviewsProps> = ({ countryCode, countryName }) => {
     };
     try {
       await reviewsApi.addReview(payload);
-      fetchReviews(false);
+      fetchReviews(false); // Refresh reviews list, bypassing cache
       setComment("");
     } catch (error) {
       console.error("Error adding review:", error);
@@ -113,7 +118,7 @@ const Reviews: React.FC<ReviewsProps> = ({ countryCode, countryName }) => {
                 <Rating
                   name={`edit-rating-${review.id}`}
                   value={editingRating || 0}
-                  onChange={(event, newValue) =>
+                  onChange={(_event, newValue) =>
                     setEditingRating(newValue)
                   }
                 />
@@ -199,7 +204,7 @@ const Reviews: React.FC<ReviewsProps> = ({ countryCode, countryName }) => {
         <Rating
           name="review-rating"
           value={rating || 0}
-          onChange={(event, newValue) => setRating(newValue)}
+          onChange={(_event, newValue) => setRating(newValue)}
         />
         <TextField
           label="Review"

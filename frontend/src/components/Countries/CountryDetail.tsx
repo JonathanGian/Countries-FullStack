@@ -14,6 +14,8 @@ import {
   CardContent,
   CardMedia,
   CircularProgress,
+  Grid,
+  Paper,
   Typography,
 } from "@mui/material";
 import { useEffect } from "react";
@@ -74,9 +76,11 @@ const CountryDetail = ({ country: propCountry }: CountryDetailProps) => {
   if (!country) {
     return <Typography variant="h6">Country not found</Typography>;
   }
-
+/* Hit when you go through Favorites */
   return (
-    <Box sx={{ p: 3}}>
+    
+    <Box sx={{ p: 3, height: "100vh" }}>
+    sdasd
       <Button
         component={Link}
         to="/countries/all"
@@ -84,11 +88,29 @@ const CountryDetail = ({ country: propCountry }: CountryDetailProps) => {
         sx={{ mb: 2 }}
         color="primary"
       >
-        Back to Countries List
+        Back to Countries Liste
       </Button>
-      <Box sx={{ display: "flex", gap: 5 }}>
-        <Box sx={{ flex: "0 0 600px" }}>
-          <Card sx={{ boxShadow: 3, height: "100%", maxWidth: "570px" }}>
+      <Grid container spacing={2} >
+        {/* Left Column: Country Card */}
+        <Grid
+          role="list"
+          
+          item
+          xs={12}
+          md={6}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Card
+            sx={{
+              flex: 1,
+              display: "flex",
+              flexDirection: "column",
+              boxShadow: 3,
+            }}
+          >
             <CardMedia
               component="img"
               height="250"
@@ -96,65 +118,58 @@ const CountryDetail = ({ country: propCountry }: CountryDetailProps) => {
               alt={`Flag of ${country.name.common}`}
               sx={{ objectFit: "cover", borderRadius: "20px 20px 0 0" }}
             />
-            {/* Country Name */}
-            <CardContent>
+            <CardContent sx={{ flexGrow: 1 }}>
               <Typography component="div" variant="h5" gutterBottom>
                 {country.name.common}
               </Typography>
-
               {/* Capital */}
               {country.capital && (
-                <Box
-                  sx={{ display: "flex", gap: 1, alignItems: "center", mb: 1 }}
-                >
+                <Box sx={{ display: "flex", gap: 1, alignItems: "center", mb: 1 }}>
                   <LocationCity color="action" fontSize="small" />
                   <Typography variant="body2" color="text.secondary">
                     {country.capital[0]}
                   </Typography>
                 </Box>
               )}
-
               {/* Population */}
-              <Box
-                sx={{ display: "flex", gap: 1, alignItems: "center", mb: 1 }}
-              >
+              <Box sx={{ display: "flex", gap: 1, alignItems: "center", mb: 1 }}>
                 <People color="action" fontSize="small" />
                 <Typography variant="body2" color="text.secondary">
                   {country.population.toLocaleString()}
                 </Typography>
               </Box>
               {/* Region/Subregion */}
-              <Box
-                sx={{ display: "flex", gap: 1, alignItems: "center", mb: 1 }}
-              >
+              <Box sx={{ display: "flex", gap: 1, alignItems: "center", mb: 1 }}>
                 <Public color="action" fontSize="small" />
                 <Typography variant="body2" color="text.secondary">
                   {country.region}
                   {country.subregion && ` (${country.subregion})`}
                 </Typography>
               </Box>
-
-              <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+              {/* Currencies */}
+              <Box sx={{ display: "flex", gap: 1,  }}>
                 <Payments color="action" fontSize="small" />
                 <Typography variant="body2" color="text.secondary" noWrap>
                   {getCurrencies()}
                 </Typography>
               </Box>
-
-              <WeatherInfo city={capital} />
             </CardContent>
-            <CardActions sx={{ mt: "auto", justifyContent: "flex-end" }}>
+            <CardActions sx={{ justifyContent: "flex-end" }}>
               <FavoriteButton country={country} />
             </CardActions>
           </Card>
-        </Box>
-        <Box sx={{ flex: 1, overflowY: "auto" }}>
-          <Reviews
-            countryCode={country.cca3}
-            countryName={country.name.common}
-          />
-        </Box>
-      </Box>
+        </Grid>
+  
+        {/* Right Column: Weather Info and Reviews */}
+        <Grid item xs={12} md={6}>
+          <Paper elevation={3} sx={{ p: 2, mb: 2 }}>
+            <WeatherInfo city={capital} />
+          </Paper>
+          <Paper elevation={3} sx={{ p: 2, overflowY: "auto" }}>
+            <Reviews countryCode={country.cca3} countryName={country.name.common} />
+          </Paper>
+        </Grid>
+      </Grid>
     </Box>
   );
 };
