@@ -8,7 +8,7 @@ import { RootState } from '../store';
 
 const initialState: WeatherState = {
   weather: {} as WeatherData,
-  loading: false,
+  loading: true,
   error: null,
 };
 
@@ -34,7 +34,7 @@ export const fetchWeatherByCity = createAsyncThunk(
         console.error('Weather API Key is missing!');
         return rejectWithValue('API key missing');
       }
-      return response.data;
+      return response.data as WeatherData;
     } catch (error) {
       console.error("Weather fetch failed:", error);
       return rejectWithValue("Weather data unavailable.");
@@ -46,26 +46,10 @@ const weatherSlice = createSlice({
   name: 'weather',
   initialState,
   reducers: {
-    clearWeather: (state) => {
-        state.weather = {} as WeatherData;
-        state.error = null;
-        state.loading = false;
-    },
-    setWeather: (state, action) => {
-        state.weather = action.payload;
-        state.loading = false;
-        state.error = null;
-    },
-    setWeatherLoading: (state, action) => {
-        state.loading = action.payload;
-    }
+ 
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchWeatherByCity.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
       .addCase(fetchWeatherByCity.fulfilled, (state, action) => {
         state.loading = false;
         state.weather = action.payload;
@@ -77,7 +61,7 @@ const weatherSlice = createSlice({
   },
 });
 
-export const { clearWeather, setWeather, setWeatherLoading } = weatherSlice.actions;
+
 
 export const selectWeather = (state:RootState) => state.weather
 

@@ -1,46 +1,48 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { CountryFavorite } from "../../types/favorite";
-import { useAppSelector } from "../../store/hooks";
-import { selectAllCountries } from "../../store/slices/countriesSlice";
-import { favoritesApi } from "../../api/services/favorites";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import {
+  fetchAllCountries,
+  selectAllCountries,
+} from "../../store/slices/countriesSlice";
+
 import { Alert, CircularProgress, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
 import CountryCard from "../Countries/CountryCard";
+import {
+  fetchFavorites,
+  selectAllFavorites,
+} from "../../store/slices/favoritesSlice";
 
 const Favorites = () => {
   const { user } = useAuth();
-  const [loading, setloading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [favorites, setFavorites] = useState<CountryFavorite[]>([]);
+  const error = useAppSelector((state) => state.favorites.error);
+  const loading = useAppSelector((state) => state.favorites.loading);
+  const favorites = useAppSelector(selectAllFavorites);
   const allCountries = useAppSelector(selectAllCountries);
-
+  const dispatch = useAppDispatch();
+console.log("Favorites", favorites);
   useEffect(() => {
+    if (allCountries.length === 0) {
+      dispatch(fetchAllCountries());
+    }
+  }, [allCountries, dispatch]);
+
+   useEffect(() => {
     if (!user) return;
-
-    const fetchFavorites = async () => {
-      setloading(true);
-      setError(null);
-      try {
-        const data = await favoritesApi.getFavorites();
-        setFavorites(data);
-      } catch (error) {
-        console.error("Error fetching favorites:", error);
-        setError("Failed to load favorites, please try again later.");
-      } finally {
-        setloading(false);
-      }
-    };
-
-    fetchFavorites();
-  }, [user]);
-
+    if (favorites.length === 0) {
+      dispatch(fetchFavorites());
+    }
+    
+  }, [user,favorites, dispatch]);
+ 
+  console.log("API favorites", favorites);
   const convertToCountry = (favorite: CountryFavorite) => {
     const fullCountry = allCountries.find(
       (country) => country.name.common === favorite.country_name,
     );
-  
 
     if (fullCountry) {
       return fullCountry;
@@ -111,14 +113,14 @@ const Favorites = () => {
         </Alert>
       ) : (
         <Grid container spacing={3}>
-     {favorites.map((favorite) => {
-        // const country = convertToCountry(favorite);
-        return (
-          <Grid item xs={12} sm={6} md={4} key={favorite.id}>
-            <CountryCard country={convertToCountry(favorite)} />
-          </Grid>
-        );
-      })}
+          {favorites.map((favorite) => {
+            // const country = convertToCountry(favorite);
+            return (
+              <Grid item xs={12} sm={6} md={4} key={favorite.id}>
+                <CountryCard country={convertToCountry(favorite)} />
+              </Grid>
+            );
+          })}
         </Grid>
       )}
     </Box>

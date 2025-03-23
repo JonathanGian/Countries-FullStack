@@ -16,7 +16,7 @@ const WeatherInfo: React.FC<WeatherInfoProps> = ({ city }) => {
   const error = useAppSelector((state) => state.weather.error);
   const weather = useAppSelector(selectWeather);
 
-
+console.log("WEATHER:",weather)
   console.log("CITY:",city)
   useEffect(() => {
     if (city && weather.weather.name !== city) {

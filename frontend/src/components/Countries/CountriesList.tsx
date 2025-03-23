@@ -102,7 +102,10 @@ const CountriesList = () => {
                 <Button size="small" component={Link} to={`/countries/${country.name.common}`} onClick={() => dispatch(setSelectedCountry(country))}>
                   View Details
                 </Button>
+
+                {/* Favorite Button */}
                 <FavoriteButton country={country} />
+              
               </CardActions>
             </Card>
           </Grid>

@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Drawer,
+  FormControlLabel,
   IconButton,
   List,
   ListItem,
@@ -11,24 +12,30 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Switch,
   Toolbar,
+  useTheme,
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { Brightness4, Close, Favorite, Lock } from "@mui/icons-material";
+import {  Close, Favorite, Lock } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
-
-import { useState } from "react";
-import { useColorMode } from "../theme/ColorModeHook";
-
+import { useContext, useState } from "react";
+import { ThemeContext } from "../context/ThemeContext";
+import { lightPalette, darkPalette } from "../Theme/theme";
+import { FiMoon, FiSun } from "react-icons/fi";
 export const Navigation = () => {
+  const { toggleColorMode } = useContext(ThemeContext);
   const { user, signOut } = useAuth();
-  const { toggleColorMode } = useColorMode();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
+  const theme = useTheme();
+
+  const mode = theme.palette.mode;
+
   return (
     <>
       <AppBar
@@ -36,41 +43,62 @@ export const Navigation = () => {
         aria-label="navigation"
         position="sticky"
         sx={{
-          background: "85FFBD",
-          backgroundImage:
-            "linear-gradient(295deg, #85FFBD 0%, #FFFB7D 62%, #04ffe8 100%)",
+          background:
+            mode === "dark"
+              ? darkPalette.custom.darkGradient
+              : lightPalette.custom.lightGradient,
           color: "#000",
           boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
           top: 0,
           zIndex: (theme) => theme.zIndex.drawer + 10,
         }}
       >
-        <Toolbar 
-        aria-label="navigation"
-        role="navigation">
+        
+        <Toolbar aria-label="navigation" role="navigation">
           {/* Left side navigation items */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <IconButton color="inherit" onClick={toggleColorMode}>
-              <Brightness4 />
-            </IconButton>
-            <IconButton 
-             aria-label="menu"
-            color="inherit" onClick={() => setDrawerOpen(true)}>
+            {/* Light/Dark mode */}
+                   <FormControlLabel
+                          control={
+                            <Switch
+                              checked={mode === "dark"}
+                              onChange={toggleColorMode}
+                              icon={<FiSun />}
+                              checkedIcon={<FiMoon />}
+                            />
+                          }
+                          label=""
+                          aria-label="toggle-dark-mode"
+                        />
+
+            {/* Drawer Button */}
+            <IconButton
+              aria-label="menu"
+              color="inherit"
+              onClick={() => setDrawerOpen(true)}
+            >
               <MenuIcon />
             </IconButton>
-            <Button 
-            aria-label="home"
-            color="inherit" component={RouterLink} to="/">
+            {/* Navigation Buttons */}
+            <Button
+              aria-label="home"
+              color="inherit"
+              component={RouterLink}
+              to="/"
+            >
               Home
             </Button>
-            <Button 
-            aria-label="countries"
-            color="inherit" component={RouterLink} to="/countries/all">
+            <Button
+              aria-label="countries"
+              color="inherit"
+              component={RouterLink}
+              to="/countries/all"
+            >
               Countries
             </Button>
             {user && (
               <Button
-              aria-label="favorites"
+                aria-label="favorites"
                 color="inherit"
                 component={RouterLink}
                 to="/favorites"
@@ -129,7 +157,12 @@ export const Navigation = () => {
                 </Menu>
               </>
             ) : (
-              <Button role="button" color="inherit" component={RouterLink} to="/login">
+              <Button
+                role="button"
+                color="inherit"
+                component={RouterLink}
+                to="/login"
+              >
                 Login
               </Button>
             )}

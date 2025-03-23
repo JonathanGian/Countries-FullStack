@@ -2,12 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import testReducer from './slices/testSlice';
 import countriesReducer from './slices/countriesSlice';
 import weatherReducer from './slices/weatherSlice';
-
+import favoritesReducer from './slices/favoritesSlice';
 export const store = configureStore({
   reducer: {
     test: testReducer,
     countries: countriesReducer,
-    weather : weatherReducer
+    weather : weatherReducer,
+    favorites: favoritesReducer,
   },
   
   // middleware: (getDefaultMiddleware) =>
