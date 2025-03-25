@@ -12,7 +12,7 @@ const SignUp: React.FC = () => {
     setError(null);
     setMessage("");
     // Call Supabase auth signUp with email and password
-    const { user, session, error } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
     });
