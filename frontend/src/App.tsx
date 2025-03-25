@@ -9,10 +9,11 @@ import ProtectedTestData from "./components/ProtectedTestData";
 import { AuthRedirect } from "./components/Auth/AuthRedirect";
 import CountriesList from "./components/Countries/CountriesList";
 import CountryDetail from "./components/Countries/CountryDetail";
-import WeatherInfo from "./components/Weather/WeatherInfo";
 import Favorites from "./components/Favorites/Favorites";
 import UserProfile from "./components/UserProfile";
-import Home from "./components/Home";
+
+import SignUp from "./components/SignUp";
+import HomePage from "./components/HomePage";
 
 function App() {
   return (
@@ -22,62 +23,42 @@ function App() {
           <Navigation />
           <Box sx={{ p: 3 }}>
             <Routes>
-              <Route path="/login" element={
-                <>
-                <AuthRedirect/>
-                <Login/>
-                </>
-              } />
-              <Route path="/test" element={<TestData />} />
-           
-              <Route path="/countries/:name" element={
-                             <CountryDetail />
-              
-                } />
-              <Route path="/weather/:capital" element={<WeatherInfo city="Austin, TX" />} />
-
-              <Route path="/" element={
-              
-              <Home/>
-              
-            } 
+              <Route
+                path="/login"
+                element={
+                  <>
+                    <AuthRedirect />
+                    <Login />
+                  </>
+                }
               />
+              <Route path="/test" element={<TestData />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/countries/:name" element={<CountryDetail />} />
+          
+              <Route path="/" element={<HomePage />} />
               <Route
                 path="/protected"
                 element={
                   <ProtectedRoute>
-                   <ProtectedTestData/>
-                    </ProtectedRoute>
-                  }
+                    <ProtectedTestData />
+                  </ProtectedRoute>
+                }
               />
-              
-              <Route
-                path="/countries/all"
-                element={
-              
-                   <CountriesList />
-                
-                  }
-              />
-              
-              <Route
-                path="/favorites"
-                element={
-              
-                    <Favorites />
-                
-                  }
-              />
-              
+
+              <Route path="/countries/all" element={<CountriesList />} />
+
+              <Route path="/favorites" element={<Favorites />} />
+
               <Route
                 path="/profile"
                 element={
                   <ProtectedRoute>
                     <UserProfile />
-                    </ProtectedRoute>
-                  }
+                  </ProtectedRoute>
+                }
               />
-       
+
               {/* Other routes... */}
             </Routes>
           </Box>

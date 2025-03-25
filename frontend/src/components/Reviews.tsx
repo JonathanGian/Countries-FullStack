@@ -213,9 +213,11 @@ const Reviews: React.FC<ReviewsProps> = ({ countryCode, countryName }) => {
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           fullWidth
+          disabled={!user}
           sx={{ mt: 2 }}
         />
-        <Button variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}>
+        
+        <Button variant="contained" disabled={!user} onClick={handleSubmit} sx={{ mt: 2 }}>
           Submit Review
         </Button>
       </Box>
