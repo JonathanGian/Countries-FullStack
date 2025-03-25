@@ -28,9 +28,11 @@ project-root/
 1. Clone the repository:
 
 ```bash
-git clone <your-repository-url>
-cd <project-directory>
+git clone https://github.com/JonathanGian/Countries-FullStack.git
+cd COUNTRIES_FULLSTACK
+npm install
 ```
+
 
 2. Install all dependencies (both frontend and backend):
 
@@ -65,11 +67,20 @@ The applications will be available at:
 
 ## Environment Setup
 
-1. Create a `.env` file in the backend directory:
+1. Create a `.env` file in the frontend directory:
+<!-- shell just for highlighting the text propperly. Do not run these in your terminal -->
+```sh
+VITE_SUPABASE_URL=YOUR_SUPABASE_URL
+VITE_SUPABASE_ANON_KEY=Supabase_Anon_key
+VITE_OPENWEATHER_API_KEY=YOUR_OPEN_API_KEY
+```
 
-```env
-SUPABASE_URL=https://your-supabase-instance.supabase.co
-SUPABASE_ANON_KEY=your-anon-key
+2. Create a `.env` file in the backend directory:
+
+```sh
+SUPABASE_URL=Your_supabase_URL
+SUPABASE_ANON_KEY=Your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 ```
 
 ## Tech Stack
@@ -90,4 +101,3 @@ SUPABASE_ANON_KEY=your-anon-key
 - ESLint and Prettier are set up for code formatting
 - Both applications include hot-reload functionality for development
 
-some changes for SonarQuebe

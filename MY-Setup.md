@@ -1,4 +1,8 @@
-# Setting up the Reviews table
+# Setting up the Reviews table in Supabase:
+
+## Description
+
+Copy these statements into your Supabase Project SQL editor and hit run.
 
 ```sql
 -- Create the reviews table
