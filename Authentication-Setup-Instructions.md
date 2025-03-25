@@ -295,7 +295,7 @@ This component handles automatic redirection after successful authentication.
 
 Wrap your app with AuthProvider and set up protected routes:
 
-```typescript:Authentication-Setup-Instructions.md
+```typescript
 function App() {
   return (
     <AuthProvider>
