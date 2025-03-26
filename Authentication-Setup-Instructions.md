@@ -72,30 +72,17 @@ EXECUTE FUNCTION set_user_id();
    - Get Client ID and Client Secret from Google Cloud Console
    - Set up authorized origins and redirect URIs:
 
-     ```
+     ```txt
      Authorized JavaScript origins:
      http://localhost:5180
 
      Authorized redirect URIs:
-     https://xijwjqpanhrlswoqgnas.supabase.co/auth/v1/callback
+     https://YourSupabaseURL.supabase.co/auth/v1/callback
      ```
 
    - Add your development URL (e.g., http://localhost:5180)
 
-## 3. Install Required Dependencies
-
-```bash
-npm install @supabase/supabase-js @supabase/auth-ui-react @supabase/auth-ui-shared
-```
-
-## 4. Set Up Environment Variables
-
-Create a `.env` file in your frontend directory:
-
-```env
-VITE_SUPABASE_URL=your_supabase_project_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-```
+## THE FOLLOWING IS FOR REFERENCE, NO NEED TO USE THIS CODE
 
 ## 5. Create Supabase Client
 
@@ -114,7 +101,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 ```
 
-## 6. Set Up Authentication Context
+## Set Up Authentication Context
 
 Create `src/context/AuthContext.tsx`:
 
@@ -178,7 +165,7 @@ export function useAuth() {
 }
 ```
 
-## 7. Create Login Component
+## Create Login Component
 
 Create `src/components/Auth/Login.tsx`:
 
@@ -226,7 +213,7 @@ export const Login = () => {
 };
 ```
 
-## 8. Create Protected Route Component
+## Create Protected Route Component
 
 Create `src/components/Auth/ProtectedRoute.tsx`:
 
@@ -266,7 +253,7 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 };
 ```
 
-## 8.5 Create Auth Redirect Component
+## Create Auth Redirect Component
 
 Create `src/components/Auth/AuthRedirect.tsx`:
 
@@ -291,7 +278,7 @@ export const AuthRedirect = () => {
 
 This component handles automatic redirection after successful authentication.
 
-## 9. Update App Component
+## Update App Component
 
 Wrap your app with AuthProvider and set up protected routes:
 
@@ -345,37 +332,3 @@ If you encounter issues:
    - Check that policies are correctly created in Supabase
    - Verify user_id is being set correctly in the trigger
    - Test policies directly in Supabase SQL editor
-
-## Security Notes
-
-1. Never commit your `.env` file to version control
-2. Keep your Supabase credentials secure
-3. Regularly rotate your OAuth credentials if needed
-4. Use appropriate RLS policies to protect your data
-5. Store sensitive files (like client_secret\*.json) outside of source control
-6. Use .gitignore to exclude sensitive files:
-   ```
-   # .gitignore
-   .env
-   .env.local
-   *.secret.json
-   client_secret*.json
-   ```
-
-## Environment Variables Setup
-
-### Frontend (.env)
-
-```env
-VITE_SUPABASE_URL=your_supabase_project_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-```
-
-### Backend (.env)
-
-```env
-SUPABASE_URL=your_supabase_project_url
-SUPABASE_ANON_KEY=your_supabase_anon_key
-```
-
-Remember to replace the placeholder values with your actual Supabase credentials.
